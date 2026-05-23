@@ -41,15 +41,4 @@ CSV Report contains:
 Example Output File:
 ```bash
 
-{
-  "Effect": "Allow",
-  "Action": [
-    "iam:ListUsers",
-    "iam:ListGroupsForUser",
-    "iam:ListAttachedUserPolicies",
-    "iam:ListUserPolicies",
-    "iam:GetLoginProfile"
-  ],
-  "Resource": "*"
-}
 iam_non_compliant_users_20260523_120000.csv
