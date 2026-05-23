@@ -3,6 +3,7 @@ import csv
 import logging
 from datetime import datetime
 from botocore.exceptions import ClientError
+from botocore.config import Config
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
 # --------------------------------------------------
@@ -16,16 +17,26 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 # --------------------------------------------------
+# Boto3 Config
+# --------------------------------------------------
+config = Config(
+    retries={
+        "max_attempts": 10,
+        "mode": "standard"
+    },
+    max_pool_connections=50
+)
+
+# --------------------------------------------------
 # AWS IAM Client
 # --------------------------------------------------
-iam = boto3.client("iam")
+iam = boto3.client("iam", config=config)
 
 # --------------------------------------------------
 # Constants
 # --------------------------------------------------
 CSV_FILE = f"iam_non_compliant_users_{datetime.now().strftime('%Y%m%d_%H%M%S')}.csv"
 
-# Case-insensitive keywords
 KEYWORDS = [
     "ip-restrict",
     "ip_restrict",
